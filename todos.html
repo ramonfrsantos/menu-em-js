@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Metatags do projeto -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>To do's</title>
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+ 
+
+  <!-- Folha de estilo -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  
+  <!-- Conteudo do site -->
+  <div class="container">
+
+    <header class="header">
+      <h1 class="titulo">To Do's</h1>
+    </header> <!-- Fim do header -->
+
+    <!-- Input box -->
+    <div class="input-group flex-nowrap">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="addon-wrapping">Search</span>
+      </div>
+      <input id="search-input" type="text" class="form-control" placeholder="Type an ID" aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+
+    <table class="table table-hover table-dark" id="posts_table">
+      <tr>
+        <th scope="col">UserID</th>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Completed</th>
+      </tr>
+
+      <tbody id="myTable">
+
+      </tbody>
+  </table>
+
+  <div id="principal">
+    <div id="conteudo">
+      <script>
+        fetch('https://jsonplaceholder.typicode.com/todos')
+          .then(response => response.json())
+          .then(json => {
+            
+            const div = document.getElementById("conteudo");
+
+            //verificação dos dados digitados
+            $('#search-input').on('keyup', function(){
+              const value = $(this).val()
+
+              var data = searchTable(value, json)
+
+              buildTable(data)
+            })
+
+            buildTable(json);
+
+            //função pesquisar
+            function searchTable(value, data){
+              var filteredData = []
+
+              for (var i = 0; i < data.length; i++){
+                const id = data[i].id
+
+                if (id == value){
+                  filteredData.push(data[i])
+                }else if (value == ''){
+                  return json
+                }
+              }
+
+              return filteredData
+            }
+
+            function buildTable(data){
+
+              var table = document.getElementById('myTable')
+
+              table.innerHTML = ''
+
+              for (var i = 0; i < data.length; i++){
+                var row = `<tr>
+                              <td>${data[i].userId}</td>
+                              <td>${data[i].id}</td>
+                              <td>${data[i].title}</td>
+                              <td>${data[i].completed}</td>
+                          </tr>`
+                table.innerHTML += row;
+              }
+            }
+          });
+
+      </script>
+    </div>
+  </div>
+
+  <nav class="nav">
+      <div class="nav-home"><a href="index.html" title="Home">HOME</a></div>
+  </nav>
+
+</div> <!--Fim do container -->
+
+</body> 
+</html>

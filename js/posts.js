@@ -119,9 +119,6 @@ fetch("https://jsonplaceholder.typicode.com/posts")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
-        var test = $(
-          ".pagination li#currentPage:eq(" + (currentPage - 1) + ")"
-        ).addClass("active");
       }
     });
 
@@ -142,9 +139,6 @@ fetch("https://jsonplaceholder.typicode.com/posts")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
-        var test = $(
-          ".pagination li#currentPage:eq(" + (currentPage - 1) + ")"
-        ).addClass("active");
       }
     });
 

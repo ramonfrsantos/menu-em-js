@@ -1,7 +1,6 @@
 fetch("https://jsonplaceholder.typicode.com/todos")
   .then((response) => response.json())
   .then((json) => {
-    
     // Ordenação
     $("th").on("click", function () {
       var column = $(this).data("column");
@@ -24,6 +23,10 @@ fetch("https://jsonplaceholder.typicode.com/todos")
       $(this).html(text);
 
       buildTable(json);
+
+      var limitPerPage = 25;
+
+      $("#myTable tr:gt(" + (limitPerPage - 1) + ")").hide();
     });
 
     //verificação dos dados digitados
@@ -120,6 +123,9 @@ fetch("https://jsonplaceholder.typicode.com/todos")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
+        $(".pagination li#currentPage:eq(" + (currentPage - 1) + ")").addClass(
+          "active"
+        );
       }
     });
 
@@ -140,6 +146,9 @@ fetch("https://jsonplaceholder.typicode.com/todos")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
+        $(".pagination li#currentPage:eq(" + (currentPage - 1) + ")").addClass(
+          "active"
+        );
       }
     });
 

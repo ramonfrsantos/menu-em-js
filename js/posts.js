@@ -23,6 +23,10 @@ fetch("https://jsonplaceholder.typicode.com/posts")
       $(this).html(text);
 
       buildTable(json);
+
+      var limitPerPage = 15;
+
+      $("#myTable tr:gt(" + (limitPerPage - 1) + ")").hide();
     });
 
     //verificação dos dados digitados
@@ -119,6 +123,9 @@ fetch("https://jsonplaceholder.typicode.com/posts")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
+        $(".pagination li#currentPage:eq(" + (currentPage - 1) + ")").addClass(
+          "active"
+        );
       }
     });
 
@@ -139,6 +146,9 @@ fetch("https://jsonplaceholder.typicode.com/posts")
         for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
           $("#myTable tr:eq(" + i + ")").show();
         }
+        $(".pagination li#currentPage:eq(" + (currentPage - 1) + ")").addClass(
+          "active"
+        );
       }
     });
 
